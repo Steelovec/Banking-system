@@ -7,6 +7,17 @@ import (
 
 var balance int
 
+
+
+type history struct {
+	transTime int
+	transAmount int
+	transType string
+	newBalance int
+}
+
+var historySlice []history
+
 func main() {
 
 	for {
@@ -15,6 +26,7 @@ func main() {
 		fmt.Println("1. Check balance")
 		fmt.Println("2. Deposit")
 		fmt.Println("3. Withdraw")
+		fmt.Println("4. Show history")
 		fmt.Println("#################################")
 		fmt.Println("Please select what you want to do: ")
 
@@ -29,6 +41,7 @@ func main() {
 func userInput() {
 
 	var userInput uint
+
 
 	fmt.Scan(&userInput)
 
@@ -46,6 +59,7 @@ func userInput() {
 			balance += amount
 			fmt.Printf("Your new balance is: %v \n", balance)
 		}
+		historySlice = append(historySlice, history{transTime: time.Now().Day(), transAmount: amount, transType: "deposit", newBalance: balance})
 	case 3:
 		var amount int
 		fmt.Println("How much do you want to withdraw: ")
@@ -57,8 +71,11 @@ func userInput() {
 			balance -= amount
 			fmt.Printf("Your new balance is: %v \n", balance)
 		}
+	case 4:
+		fmt.Printf("This is the transaction history: %v \n", historySlice)
 	default:
 		fmt.Println("Please select 1,2 or 3")
 	}
 }
+
 // done!
